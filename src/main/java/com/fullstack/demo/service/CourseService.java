@@ -1,7 +1,7 @@
 package com.fullstack.demo.service;
 
 import java.util.List;
-import java.util.Optional;
+// ...existing imports...
 
 import com.fullstack.demo.repository.CourseRepository;
 import com.fullstack.demo.exception.CourseNotFoundException;
@@ -81,6 +81,22 @@ public class CourseService {
                     return insName.contains(name);
                 })
                 .toList();
+    }
+
+    public Course updateDuration(String courseId, int newDurationHours) {
+        Course course = getCourseById(courseId);
+        if (newDurationHours <= 0) {
+            throw new InvalidCourseException("Course duration must be greater than zero.");
+        }
+        course.setDurationHours(newDurationHours);
+        return courseRepository.save(course);
+    }
+
+    public void deleteCourse(String courseId) {
+        if (!courseRepository.existsById(courseId)) {
+            throw new CourseNotFoundException(courseId);
+        }
+        courseRepository.deleteById(courseId);
     }
 
     private void validateCourse(Course course) {
