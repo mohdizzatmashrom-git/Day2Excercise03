@@ -30,6 +30,14 @@ public class CourseServiceDemo {
 
         System.out.println();
 
+        // === Search and Filter Demo ===
+        System.out.println("=== Search by title: 'java' ===");
+        courseService.searchByTitle("java").forEach(c -> System.out.println(c.getCourseId() + " - " + c.getTitle()));
+
+        System.out.println();
+        System.out.println("=== Filter by level: 'Beginner' ===");
+        courseService.filterByLevel("Beginner").forEach(c -> System.out.println(c.getCourseId() + " - " + c.getTitle()));
+
         // === Invalid Course Tests ===
         System.out.println("=== Invalid Course Tests ===");
         testInvalidCourses(courseService);
